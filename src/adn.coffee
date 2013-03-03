@@ -53,7 +53,7 @@ class AdnClient extends EventEmitter
 			"agent"  : false
 			"host"   : "stream-channel.app.net"
 			"port"   : 443
-			"path"   : channel
+			"path"   : @channel
 			"method" : "GET"
 			"headers": headers
 
