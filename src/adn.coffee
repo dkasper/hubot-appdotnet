@@ -45,7 +45,7 @@ class AdnClient extends EventEmitter
 		@domain = "alpha-api.app.net"
 
 	# listen for activity in channels
-	watchstream ->		
+	watchstream: ->		
 		headers =
 			"Host": "stream-channel.app.net"
 
