@@ -7,7 +7,7 @@ class Adn extends Adapter
 	run: ->
 		@options = 
 			token: process.env.HUBOT_ADN_TOKEN
-			user: process.env.HUBOT_ADN_CHANNEL
+			channel: process.env.HUBOT_ADN_CHANNEL
 
 		@client = new AdnClient(@options.token, @options.channel)
 		@client.watchstream()
