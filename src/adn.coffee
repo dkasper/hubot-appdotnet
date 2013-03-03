@@ -20,7 +20,7 @@ class Adn extends Adapter
 		console.log "adn client online"
 		self.emit "connected"
 
-	handleMessage(msg): ->
+	handleMessage: (msg) ->
 		user = @getUser msg.user.username
 		user.type = 'adn'
 		@receive new TextMessage(user, msg.text)
