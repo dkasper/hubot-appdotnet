@@ -62,7 +62,7 @@ class AdnClient extends EventEmitter
 
 			buf = ''
 
-			response.on('connect') ->
+			response.on 'connect', ->
 				self.emit 'online'
 
 			response.on "data", (chunk) ->
