@@ -1,0 +1,24 @@
+{
+  "name": "hubot-appdotnet",
+  "version": "1.0.0",
+  "author": "David Kasper",
+  "keywords": [
+    "github hubot adn adapter"
+  ],
+  "description": "A ADN adapter for hubot",
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://github.com/tombell/hubot-twilio/raw/master/LICENSE"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/dkasper/hubot-appdotnet.git"
+  },
+  "dependencies": {
+    "hubot": ">=2.4.5",
+  },
+  "main": "./src/adn",
+  "readmeFilename": "Readme.md"
+}
