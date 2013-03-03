@@ -47,7 +47,7 @@ class AdnClient extends EventEmitter
 	# listen for activity in channels
 	watchstream: ->
 		self = @
-				
+
 		headers =
 			"Host": "stream-channel.app.net"
 
@@ -68,7 +68,6 @@ class AdnClient extends EventEmitter
 				self.emit 'online'
 
 			response.on "data", (chunk) ->
-				console.log chunk
 				if chunk is ' '
 				  # campfire api sends a ' ' heartbeat every 3s
 
