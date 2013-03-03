@@ -66,12 +66,13 @@ class AdnClient extends EventEmitter
 				self.emit 'online'
 
 			response.on "data", (chunk) ->
+				console.log chunk
 				if chunk is ' '
 				  # campfire api sends a ' ' heartbeat every 3s
 
 				else if chunk.match(/^\s*Access Denied/)
 				  # errors are not json formatted
-				  @robot.logger.error "App.net error on channel #{@channel}: #{chunk}"
+				  console.log "App.net error on channel #{@channel}: #{chunk}"
 
 				else
 					# api uses newline terminated json payloads
@@ -83,26 +84,25 @@ class AdnClient extends EventEmitter
 						buf = buf.substr(offset + 1)
 
 						if part
-							#try
+							try
 								data = JSON.parse part
-								#todo self.emit event
 								if data.data.text
 									self.emit 'receivedmessage', data.data
-							#catch error
-						#		console.log(error)
-						#		@robot.logger.error "App.net error: #{error}\n#{error.stack}"
+							catch error
+								console.log(error)
+								@robot.logger.error "App.net error: #{error}\n#{error.stack}"
 
 			response.on "end", ->
-				@robot.logger.error "Streaming connection closed for channel #{@channel}. :("
+				console.log "Streaming connection closed for channel #{@channel}. :("
 				setTimeout (->
 					self.emit "reconnect", @channel
 				), 5000
 
 			response.on "error", (err) ->
-				@robot.logger.error "App.net response error: #{err}"
+				console.log "App.net response error: #{err}"
 
 		request.on "error", (err) ->
-			@robot.logger.error "App.net request error: #{err}"
+			console.log "App.net request error: #{err}"
 
 		request.end()
 
@@ -121,8 +121,6 @@ class AdnClient extends EventEmitter
 		@request "PUT", path, body, callback
 
 	request: (method, path, body, callback) ->
-		logger = @robot.logger
-
 		headers =
 			"Content-Type"  : "application/json"
 			"Authorization" : "Bearer #{@token}"
@@ -154,7 +152,7 @@ class AdnClient extends EventEmitter
 						when 401
 							throw new Error "Invalid access token provided, app.net refused the authentication"
 						else
-							logger.error "App.net error: #{response.statusCode}"
+							console.log "App.net error: #{response.statusCode}"
 
 				try
 					callback null, JSON.parse(data)
@@ -162,7 +160,7 @@ class AdnClient extends EventEmitter
 					callback null, data or { }
 
 			response.on "error", (err) ->
-				logger.error "App.net response error: #{err}"
+				console.log "App.net response error: #{err}"
 				callback err, { }
 
 		if method is "POST" || method is "PUT"
