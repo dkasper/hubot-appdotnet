@@ -45,7 +45,9 @@ class AdnClient extends EventEmitter
 		@domain = "alpha-api.app.net"
 
 	# listen for activity in channels
-	watchstream: ->		
+	watchstream: ->
+		self = @
+				
 		headers =
 			"Host": "stream-channel.app.net"
 
@@ -90,7 +92,6 @@ class AdnClient extends EventEmitter
 									self.emit 'receivedmessage', data.data
 							catch error
 								console.log(error)
-								@robot.logger.error "App.net error: #{error}\n#{error.stack}"
 
 			response.on "end", ->
 				console.log "Streaming connection closed for channel #{@channel}. :("
